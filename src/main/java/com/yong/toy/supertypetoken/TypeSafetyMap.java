@@ -9,14 +9,14 @@ import java.util.Map;
  * Created by LichKing on 2016. 11. 13..
  */
 public class TypeSafetyMap {
-    private Map<TypeReference<?>, Object> map;
+    private Map<Type, Object> map;
 
     {
         map = new HashMap<>();
     }
 
     public <T> void put(TypeReference<T> typeReference, T t){
-        this.map.put(typeReference, t);
+        this.map.put(typeReference.type(), t);
     }
 
     @SuppressWarnings("unchecked")
@@ -30,6 +30,6 @@ public class TypeSafetyMap {
             clazz = (Class<T>) type;
         }
 
-        return clazz.cast(map.get(typeReference));
+        return clazz.cast(map.get(typeReference.type()));
     }
 }
